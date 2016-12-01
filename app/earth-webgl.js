@@ -5,6 +5,7 @@ function earthBackground() {
   var container, stats;
   var camera, scene, renderer;
   var mesh, light;
+  var composer, dpr, effectFXAA, renderScene;
 
   var windowHalfX = window.innerWidth / 2;
   var windowHalfY = window.innerHeight / 2;
@@ -39,10 +40,25 @@ function earthBackground() {
     scene.add(mesh);
 
     renderer = new THREE.WebGLRenderer({antialias: true});
-    renderer.setClearColor(0xffffff);
+    renderer.setClearColor(0x000);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
+
+    dpr = 1;
+    if (window.devicePixelRatio !== undefined) {
+      dpr = window.devicePixelRatio;
+    }
+
+    renderScene = new THREE.RenderPass(scene, camera);
+    effectFXAA = new THREE.ShaderPass(THREE.FXAAShader);
+    effectFXAA.uniforms['resolution'].value.set(1 / (window.innerWidth * dpr), 1 / (window.innerHeight * dpr));
+    effectFXAA.renderToScreen = true;
+
+    composer = new THREE.EffectComposer(renderer);
+    composer.setSize(window.innerWidth * dpr, window.innerHeight * dpr);
+    composer.addPass(renderScene);
+    composer.addPass(effectFXAA);
 
     stats = new Stats();
     // container.appendChild(stats.dom);
@@ -56,6 +72,8 @@ function earthBackground() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    effectFXAA.uniforms['resolution'].value.set(1 / (window.innerWidth * dpr), 1 / (window.innerHeight * dpr));
+    composer.setSize(window.innerWidth * dpr, window.innerHeight * dpr);
   }
 
   function animate() {
@@ -66,7 +84,7 @@ function earthBackground() {
 
   function render() {
     camera.lookAt(scene.position);
-    renderer.render(scene, camera);
+    composer.render();
     update();
   }
 
