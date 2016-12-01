@@ -34,7 +34,7 @@
 	var nblines = 7;
 
 	function initTiles() {
-		Console.log("initTiles");//je sais pas débug
+		console.log("initTiles");//je sais pas débug
 		for(var i = 0 ; i < nblines; i++){
 			$(document).findElementById("gameview").append(`<div class="line col-md-7" id=line`+i+`></div>`); 
 			for(var j = 0 ; j < width ; j++){
@@ -43,7 +43,7 @@
 		}
 	}
 	function updateScore(i){
-		Console.log("updateScore");
+		console.log("updateScore");
 		$(document).findElementById("score").textContent = i ;
 	}
 	window.onload = function(e) {
