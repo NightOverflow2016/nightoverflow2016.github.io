@@ -48,8 +48,8 @@
 		$(document).findElementById("score").textContent = i ;
 	}
 
-	window.onload = function(e) {
+	$(document).onload(function(e){
 		initTiles();
 		updateScore(5);
-	};
+	});
 </script>
