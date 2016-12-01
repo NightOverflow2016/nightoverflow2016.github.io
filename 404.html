@@ -18,8 +18,13 @@
 
 </body>
 </html>
-<script src="/javascripts/application.js" type="text/javascript" charset="utf-8" async defer>
-$(document).onload(function(){
-	alert("salut");
-});
+
+<script language="javascript">
+    function bodyOnloadHandler() {
+        console.log("body onload");
+    }
+
+    window.onload = function(e) {
+  		console.log("window loaded");
+    };
 </script>
