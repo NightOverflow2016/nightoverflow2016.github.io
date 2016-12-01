@@ -6,36 +6,48 @@
 	<title>404 Not Found</title>
 </head>
 <body>
-
-	<div id="gameheader"></div>
+	<div id="gameheader"><h1>404 ERROR</h1></div>
 	<div class="row">
 		<div class="col-md-3"  id="gameview">
 			<ul>
 				<li>
 					<p>Hello, You may have a connection issue. You should try our game !</p>
-					</li>
-					<li>
+				</li>
+				<li>
 					<p>Score : <span id="score">0</span></p>
-					</li>
-				</ul>
-			</div>
-			<div class="well well-lg col-md-8"  id="gameview">
-				<p> here will be the game </p>
-			</div>
+				</li>
+			</ul>
 		</div>
-		<div id="gamefooter"></div>
-		<p>Coming soon</p>
+		<div class="well well-lg col-md-8"  id="gameview">
+			<p> here will be the game </p>
+		</div>
+	</div>
+	<div id="gamefooter">
+		
+	</div>
+</body>
+</html>
 
-	</body>
-	</html>
+<script language="javascript">
+	
+	var width = 7; 
+	var nblines = 7;
 
-	<script language="javascript">
-		function initTiles() {
-
+	function initTiles() {
+		Console.log("initTiles");//je sais pas débug
+		for(var i = 0 ; i < nblines; i++){
+			$(document).findElementById("gameview").append(`<div class="line col-md-7" id=line`+i+`></div>`); 
+			for(var j = 0 ; j < width ; j++){
+				$(document).findElementById("line"+i).append(`<div class="tile col-md-1" id=tile`+j+`></div>`); 
+			}
 		}
-
-
-		window.onload = function(e) {
-
-		};
-	</script>
+	}
+	function updateScore(i){
+		Console.log("updateScore");
+		$(document).findElementById("score").textContent = i ;
+	}
+	window.onload = function(e) {
+		initTiles();
+		updateScore(5);
+	};
+</script>
